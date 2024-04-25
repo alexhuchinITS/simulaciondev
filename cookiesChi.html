@@ -1,0 +1,58 @@
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Prueba de Chi-cuadrada - Calidad de Galletas</title>
+    </head>
+    <body>
+        <h1>Prueba de Chi-cuadrada - Calidad de Galletas</h1>
+        <form id="chiForm">
+            <label for="observedChocolateDef">Galletas Chocolate Defectuosas:</label>
+            <input type="number" id="observedChocolateDef" required><br><br>
+
+            <label for="observedChocolateNonDef">Galletas Chocolate No Defectuosas:</label>
+            <input type="number" id="observedChocolateNonDef" required><br><br>
+
+            <label for="observedVanillaDef">Galletas Vainilla Defectuosas:</label>
+            <input type="number" id="observedVanillaDef" required><br><br>
+
+            <label for="observedVanillaNonDef">Galletas Vainilla No Defectuosas:</label>
+            <input type="number" id="observedVanillaNonDef" required><br><br>
+
+            <label for="observedStrawberryDef">Galletas Fresa Defectuosas:</label>
+            <input type="number" id="observedStrawberryDef" required><br><br>
+
+            <label for="observedStrawberryNonDef">Galletas Fresa No Defectuosas:</label>
+            <input type="number" id="observedStrawberryNonDef" required><br><br>
+
+            <button type="button" onclick="calcularChiCuadrada()">Calcular Chi-cuadrada</button>
+        </form>
+
+        <div id="resultados"></div>
+
+        <script>
+            function calcularChiCuadrada() {
+                const observedChocolateDef = parseInt(document.getElementById('observedChocolateDef').value);
+                const observedChocolateNonDef = parseInt(document.getElementById('observedChocolateNonDef').value);
+                const observedVanillaDef = parseInt(document.getElementById('observedVanillaDef').value);
+                const observedVanillaNonDef = parseInt(document.getElementById('observedVanillaNonDef').value);
+                const observedStrawberryDef = parseInt(document.getElementById('observedStrawberryDef').value);
+                const observedStrawberryNonDef = parseInt(document.getElementById('observedStrawberryNonDef').value);
+
+                const chiSquared = ((observedChocolateDef * observedVanillaNonDef * observedStrawberryNonDef) - 
+                                (observedChocolateNonDef * observedVanillaDef * observedStrawberryNonDef) - 
+                                (observedChocolateNonDef * observedVanillaNonDef * observedStrawberryDef)) ** 2 /
+                                ((observedChocolateDef + observedChocolateNonDef) * 
+                                (observedVanillaDef + observedVanillaNonDef) * 
+                                (observedStrawberryDef + observedStrawberryNonDef) * 
+                                (observedChocolateDef + observedVanillaDef + observedStrawberryDef) *
+                                (observedChocolateNonDef + observedVanillaNonDef + observedStrawberryNonDef));
+
+                const resultadosDiv = document.getElementById('resultados');
+                resultadosDiv.innerHTML = `<h3>Resultados:</h3>
+                <p>Estadístico Chi-cuadrada: ${chiSquared.toFixed(2)}</p>`;
+            }
+        </script>
+    </body>
+    </html>
